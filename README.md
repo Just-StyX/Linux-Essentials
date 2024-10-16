@@ -1,6 +1,6 @@
 # Linux-Essentials
 
-Linux Essentials
+Welcome to Coding Playground
 
 ## Intro Project
 
