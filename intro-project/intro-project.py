@@ -1,38 +1,44 @@
 #!/usr/bin/env python3
 
-# To be able to get outside libraries or modules that don't come in by default.
+"""
+This monitors a csv file and insert changes to database
+Requirements:
+    pyscopg: import other needed modules
+    pyinotify: provide functionality for file monitoring
+"""
+
 import psycopg # type: ignore
 import pyinotify # type: ignore
 
-fileName = "./product.csv"
 
-dbname = "your database name"
-username = "your database username"
-password = "your database password"
-host = "your database host" # normally localhost
-port = "your database port"
+FILENAME = "./fatal.csv"
 
-def monitoring():
-    try: 
+def check_and_notify(file):
+    """
+    This function monitors the csv file: fatal.csv
+    """
+    try:
         with psycopg.connect(
-            "dbname=" + dbname + " user=" + username + " password=" + password + " host=" + host + " port=" + port
-        ) as connection: 
-            with connection.cursor() as my_cursor:
-                with open(fileName, 'r') as productFile:
-                    for line in productFile.readlines():
-                        values = line.split(",")
-                        my_cursor.execute(
-                            "INSERT INTO product (product_name, price) VALUES (%s, %s)", # Use placeholders to parameterize our query
-                            (values[0], values[1])
-                        )
-                        
-                print("products added to database successfully")
+            "dbname=database user=user password=password host=host port=port"
+        ) as connection:
+            with connection.cursor() as record_cursor:
 
-    except Exception as e:
+                error_or_fatal = ''
+                with open(FILENAME, 'r', newline="", encoding="utf-8") as records:
+                    record = records.readlines()[-1].split(",")
+                    error_or_fatal = record[1]
+                    record_cursor.execute(
+                    "INSERT INTO fatal (created_on, error_level,error_message) VALUES (%s, %s, %s)",
+                    (record[0], record[1], record[2])
+                    )
+
+                alert = 'Email alert: ' + error_or_fatal
+                print(alert)
+
+    except FileNotFoundError as e:
         print("Error connecting to my db: ", e)
 
-
-watching = pyinotify.WatchManager()
-watching.add_watch(fileName, pyinotify.IN_CLOSE_WRITE, monitoring)
-notifier = pyinotify.Notifier(watching)
+watch = pyinotify.WatchManager()
+watch.add_watch(FILENAME, pyinotify.IN_CLOSE_WRITE, check_and_notify)
+notifier = pyinotify.Notifier(watch)
 notifier.loop()

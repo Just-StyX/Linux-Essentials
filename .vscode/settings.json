@@ -1,0 +1,23 @@
+{
+        "workbench.colorCustomizations": {
+                "activityBar.activeBackground": "#ea7592",
+                "activityBar.background": "#ea7592",
+                "activityBar.foreground": "#15202b",
+                "activityBar.inactiveForeground": "#15202b99",
+                "activityBarBadge.background": "#a8ee90",
+                "activityBarBadge.foreground": "#15202b",
+                "commandCenter.border": "#e7e7e799",
+                "sash.hoverBorder": "#ea7592",
+                "statusBar.background": "#e3496f",
+                "statusBar.foreground": "#e7e7e7",
+                "statusBarItem.hoverBackground": "#ea7592",
+                "statusBarItem.remoteBackground": "#e3496f",
+                "statusBarItem.remoteForeground": "#e7e7e7",
+                "titleBar.activeBackground": "#e3496f",
+                "titleBar.activeForeground": "#e7e7e7",
+                "titleBar.inactiveBackground": "#e3496f99",
+                "titleBar.inactiveForeground": "#e7e7e799"
+        },
+        "peacock.color": "#e3496f",
+        "cSpell.words": ["psycopg", "pyasynchat", "pyinotify", "pyscopg"]
+}
