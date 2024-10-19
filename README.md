@@ -15,3 +15,8 @@ and the intro-project.py monitors the fatal.csv file. Watch the video on for mor
      - psycopg
      - pyinotify
      - pyasynchat
+- Essential skills you will gain
+     - Bash scripting
+     - Python
+     - PostgreSQL
+     - Cronjob

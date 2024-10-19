@@ -1,0 +1,3 @@
+crontab -e
+
+* * * * * /absolute/path/to/cron_alert.sh
